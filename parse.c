@@ -6,7 +6,7 @@
 /*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 01:50:29 by ahsimsek          #+#    #+#             */
-/*   Updated: 2026/09/03 02:31:43 by ahsimsek         ###   ########.fr       */
+/*   Updated: 2026/09/03 04:19:37 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,49 @@ int is_valid_nbr(char *str)
 	if(num > INT_MAX || num < INT_MIN)
 		return(0);
 	return(1);
+}
+
+static int	process_args(t_stack **a, char **args)
+{
+	int		j;
+	long	num;
+
+	j = 0;
+	while (args[j])
+	{
+		num = ft_atol(args[j]);
+		if (!is_valid_number(args[j]) || check_duplicate(*a, (int)num))
+			return (0);
+		stack_add_back(a, stack_new((int)num));
+		j++;
+	}
+	return (1);
+}
+
+int	parse_args(t_stack **a, char **argv)
+{
+	int		i;
+	char	**args;
+
+	i = 1;
+	while (argv[i])
+	{
+		args = ft_split(argv[i], ' ');
+		if (!args || !args[0])
+		{
+			if (args)
+				free_matrix(args);
+			free_stack(a);
+			return (0);
+		}
+		if (!process_args(a, args))
+		{
+			free_matrix(args);
+			free_stack(a);
+			return (0);
+		}
+		free_matrix(args);
+		i++;
+	}
+	return (1);
 }
