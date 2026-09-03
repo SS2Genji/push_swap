@@ -6,14 +6,14 @@
 /*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 01:43:33 by ahsimsek          #+#    #+#             */
-/*   Updated: 2026/09/03 04:27:35 by ahsimsek         ###   ########.fr       */
+/*   Updated: 2026/09/03 04:46:56 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "libft.h"
+# include "libft/libft.h"
 # include <limits.h>
 
 typedef struct s_stack

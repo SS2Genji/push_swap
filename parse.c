@@ -6,7 +6,7 @@
 /*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 01:50:29 by ahsimsek          #+#    #+#             */
-/*   Updated: 2026/09/03 04:19:37 by ahsimsek         ###   ########.fr       */
+/*   Updated: 2026/09/03 04:54:44 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	process_args(t_stack **a, char **args)
 	while (args[j])
 	{
 		num = ft_atol(args[j]);
-		if (!is_valid_number(args[j]) || check_duplicate(*a, (int)num))
+		if (!is_valid_nbr(args[j]) || check_duplicate(*a, (int)num))
 			return (0);
 		stack_add_back(a, stack_new((int)num));
 		j++;
