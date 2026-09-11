@@ -53,15 +53,16 @@ long	ft_atol(const char *nptr)
 	return (sign * result);
 }
 
-int is_valid_nbr(char *str)
+int	is_valid_nbr(char *str)
 {
 	long	num;
-	if(!check_syntax(str))
-		return(0);
+
+	if (!check_syntax(str))
+		return (0);
 	num = ft_atol(str);
-	if(num > INT_MAX || num < INT_MIN)
-		return(0);
-	return(1);
+	if (num > INT_MAX || num < INT_MIN)
+		return (0);
+	return (1);
 }
 
 static int	process_args(t_stack **a, char **args)

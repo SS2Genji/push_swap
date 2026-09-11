@@ -1,72 +1,76 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   medium_sort.c                                     :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/09/09 13:27:45 by username         #+#    #+#              */
-/*   Updated: 2026/09/09 13:34:20 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   medium_sort.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/09 13:27:45 by ahsimsek          #+#    #+#             */
+/*   Updated: 2026/09/10 18:50:22 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	chunk_size(int size)
+static int	get_chunk_size(int size)
 {
-	int	k;
-
-	k = 1;
-	while ((k + 1) * (k + 1) <= size)
-		k++;
-	return (size / k);
+	if (size <= 20)
+		return (4);
+	if (size <= 100)
+		return (15);
+	return (32);
 }
 
-void	medium_sort(t_stack **stack_a, t_stack **stack_b, t_count *count)
+static void	push_chunks_to_b(t_stack **a, t_stack **b, int chunk)
 {
-	int		pushed;
-	int		chunk;
-	t_stack	*max_node;
-	t_stack	*tmp;
-	int		pos;
-	int		size;
+	int	pushed;
 
 	pushed = 0;
-	chunk = chunk_size(ft_lstsize(*stack_a));
-	while (*stack_a)
+	while (*a)
 	{
-		if ((*stack_a)->index <= pushed)
+		if ((*a)->index <= pushed)
 		{
-			pb(stack_a, stack_b, count);
-			rb(stack_b, count);
+			pb(a, b);
+			rb(b);
 			pushed++;
 		}
-		else if ((*stack_a)->index <= pushed + chunk)
+		else if ((*a)->index <= pushed + chunk)
 		{
-			pb(stack_a, stack_b, count);
+			pb(a, b);
 			pushed++;
 		}
 		else
-			ra(stack_a, count);
+			ra(a);
 	}
-	while (*stack_b)
+}
+
+static void	push_back_to_a(t_stack **a, t_stack **b)
+{
+	t_stack	*max_node;
+	int		pos;
+	int		size;
+
+	while (*b)
 	{
-		max_node = find_max(*stack_b);
-		size = ft_lstsize(*stack_b);
-		pos = 0;
-		tmp = *stack_b;
-		while (tmp && tmp != max_node)
-		{
-			pos++;
-			tmp = tmp->next;
-		}
-		while (*stack_b != max_node)
+		max_node = find_max_node(*b);
+		size = stack_size(*b);
+		pos = get_node_pos(*b, max_node);
+		while (*b != max_node)
 		{
 			if (pos <= size / 2)
-				rb(stack_b, count);
+				rb(b);
 			else
-				rrb(stack_b, count);
+				rrb(b);
 		}
-		pa(stack_a, stack_b, count);
+		pa(a, b);
 	}
+}
+
+void	medium_sort(t_stack **stack_a, t_stack **stack_b)
+{
+	int	chunk;
+
+	chunk = get_chunk_size(stack_size(*stack_a));
+	push_chunks_to_b(stack_a, stack_b, chunk);
+	push_back_to_a(stack_a, stack_b);
 }

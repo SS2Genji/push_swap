@@ -1,42 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   radix_sort.c                                       :+:      :+:    :+:   */
+/*   simple_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/09 13:09:20 by ahsimsek          #+#    #+#             */
-/*   Updated: 2026/09/10 18:48:10 by ahsimsek         ###   ########.fr       */
+/*   Created: 2026/09/10 18:02:15 by ahsimsek          #+#    #+#             */
+/*   Updated: 2026/09/10 18:40:50 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	radix_sort(t_stack **a, t_stack **b)
+void	simple_sort(t_stack **a, t_stack **b)
 {
-	int	max_bits;
-	int	i;
-	int	j;
-	int	size;
+	t_stack	*min_node;
+	int		pos;
+	int		size;
 
-	if (!a || !*a || is_sorted(*a))
-		return ;
-	max_bits = get_max_bits(stack_size(*a) - 1);
-	i = 0;
-	while (i < max_bits)
+	while (stack_size(*a) > 3)
 	{
+		min_node = find_min_node(*a);
+		pos = get_node_pos(*a, min_node);
 		size = stack_size(*a);
-		j = 0;
-		while (j < size)
+		while (*a != min_node)
 		{
-			if ((((*a)->index >> i) & 1) == 1)
+			if (pos <= size / 2)
 				ra(a);
 			else
-				pb(a, b);
-			j++;
+				rra(a);
 		}
-		while (*b)
-			pa(a, b);
-		i++;
+		pb(a, b);
 	}
+	sort_three(a);
+	while (*b)
+		pa(a, b);
 }

@@ -6,16 +6,17 @@
 /*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 05:20:41 by ahsimsek          #+#    #+#             */
-/*   Updated: 2026/09/03 05:26:44 by ahsimsek         ###   ########.fr       */
+/*   Updated: 2026/09/10 18:22:04 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void swap(t_stack **stack)
+static void	swap(t_stack **stack)
 {
-	t_stack *first;
-	t_stack *second;
+	t_stack	*first;
+	t_stack	*second;
+
 	if (!stack || !*stack || !(*stack)->next)
 		return ;
 	first = *stack;
@@ -25,10 +26,10 @@ static void swap(t_stack **stack)
 	*stack = second;
 }
 
-void sa(t_stack **a)
+void	sa(t_stack **a)
 {
 	swap(a);
-	ft_putstr_fd("sa/n",1);
+	ft_putstr_fd("sa\n", 1);
 }
 
 void	sb(t_stack **b)

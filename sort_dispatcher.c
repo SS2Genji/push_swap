@@ -1,42 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   radix_sort.c                                       :+:      :+:    :+:   */
+/*   sort_dispatcher.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/09 13:09:20 by ahsimsek          #+#    #+#             */
-/*   Updated: 2026/09/10 18:48:10 by ahsimsek         ###   ########.fr       */
+/*   Created: 2026/09/10 18:15:20 by ahsimsek          #+#    #+#             */
+/*   Updated: 2026/09/10 19:10:05 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	radix_sort(t_stack **a, t_stack **b)
+void	sort_stack(t_stack **a, t_stack **b)
 {
-	int	max_bits;
-	int	i;
-	int	j;
-	int	size;
+	int		size;
+	double	disorder;
 
 	if (!a || !*a || is_sorted(*a))
 		return ;
-	max_bits = get_max_bits(stack_size(*a) - 1);
-	i = 0;
-	while (i < max_bits)
+	size = stack_size(*a);
+	if (size == 2)
 	{
-		size = stack_size(*a);
-		j = 0;
-		while (j < size)
-		{
-			if ((((*a)->index >> i) & 1) == 1)
-				ra(a);
-			else
-				pb(a, b);
-			j++;
-		}
-		while (*b)
-			pa(a, b);
-		i++;
+		if ((*a)->value > (*a)->next->value)
+			sa(a);
+		return ;
 	}
+	if (size == 3)
+		return (sort_three(a));
+	if (size <= 5)
+		return (sort_five(a, b));
+	disorder = compute_disorder(*a);
+	if (disorder < 0.2)
+		simple_sort(a, b);
+	else if (disorder < 0.5)
+		medium_sort(a, b);
+	else
+		medium_sort(a, b);
 }

@@ -6,7 +6,7 @@
 /*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 02:32:11 by ahsimsek          #+#    #+#             */
-/*   Updated: 2026/09/03 02:46:53 by ahsimsek         ###   ########.fr       */
+/*   Updated: 2026/09/10 18:35:10 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,17 @@ void	stack_add_back(t_stack **lst, t_stack *new_node)
 	}
 	last_stack = stack_last(*lst);
 	last_stack->next = new_node;
+}
+
+int	stack_size(t_stack *lst)
+{
+	int	size;
+
+	size = 0;
+	while (lst)
+	{
+		size++;
+		lst = lst->next;
+	}
+	return (size);
 }

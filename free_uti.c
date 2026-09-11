@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
 void	free_stack(t_stack **stack)
 {
 	t_stack	*tmp;
@@ -26,12 +27,12 @@ void	free_stack(t_stack **stack)
 	*stack = NULL;
 }
 
-void free_matrix(char **str)
+void	free_matrix(char **str)
 {
 	int	i;
 
 	i = 0;
-	if(!str)
+	if (!str)
 		return ;
 	while (str[i])
 	{

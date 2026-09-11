@@ -1,42 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   radix_sort.c                                       :+:      :+:    :+:   */
+/*   index.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/09 13:09:20 by ahsimsek          #+#    #+#             */
-/*   Updated: 2026/09/10 18:48:10 by ahsimsek         ###   ########.fr       */
+/*   Created: 2026/09/10 17:30:12 by ahsimsek          #+#    #+#             */
+/*   Updated: 2026/09/10 18:05:18 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	radix_sort(t_stack **a, t_stack **b)
+void	assign_index(t_stack *a)
 {
-	int	max_bits;
-	int	i;
-	int	j;
-	int	size;
+	t_stack	*current;
+	t_stack	*compare;
+	int		idx;
 
-	if (!a || !*a || is_sorted(*a))
-		return ;
-	max_bits = get_max_bits(stack_size(*a) - 1);
-	i = 0;
-	while (i < max_bits)
+	current = a;
+	while (current)
 	{
-		size = stack_size(*a);
-		j = 0;
-		while (j < size)
+		idx = 0;
+		compare = a;
+		while (compare)
 		{
-			if ((((*a)->index >> i) & 1) == 1)
-				ra(a);
-			else
-				pb(a, b);
-			j++;
+			if (compare->value < current->value)
+				idx++;
+			compare = compare->next;
 		}
-		while (*b)
-			pa(a, b);
-		i++;
+		current->index = idx;
+		current = current->next;
 	}
 }
