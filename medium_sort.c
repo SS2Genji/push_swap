@@ -6,7 +6,7 @@
 /*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/09 13:27:45 by ahsimsek          #+#    #+#             */
-/*   Updated: 2026/09/10 18:50:22 by ahsimsek         ###   ########.fr       */
+/*   Updated: 2026/09/12 01:30:00 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 
 static int	get_chunk_size(int size)
 {
+	int	chunk;
+
 	if (size <= 20)
 		return (4);
-	if (size <= 100)
-		return (15);
-	return (32);
+	chunk = (ft_isqrt(size) * 145) / 100;
+	if (chunk < 1)
+		chunk = 1;
+	return (chunk);
 }
 
-static void	push_chunks_to_b(t_stack **a, t_stack **b, int chunk)
+static void	push_chunks_to_b(t_stack **a, t_stack **b, int chunk,
+		t_bench *bench)
 {
 	int	pushed;
 
@@ -30,21 +34,21 @@ static void	push_chunks_to_b(t_stack **a, t_stack **b, int chunk)
 	{
 		if ((*a)->index <= pushed)
 		{
-			pb(a, b);
-			rb(b);
+			pb(a, b, bench);
+			rb(b, bench);
 			pushed++;
 		}
 		else if ((*a)->index <= pushed + chunk)
 		{
-			pb(a, b);
+			pb(a, b, bench);
 			pushed++;
 		}
 		else
-			ra(a);
+			ra(a, bench);
 	}
 }
 
-static void	push_back_to_a(t_stack **a, t_stack **b)
+static void	push_back_to_a(t_stack **a, t_stack **b, t_bench *bench)
 {
 	t_stack	*max_node;
 	int		pos;
@@ -58,19 +62,19 @@ static void	push_back_to_a(t_stack **a, t_stack **b)
 		while (*b != max_node)
 		{
 			if (pos <= size / 2)
-				rb(b);
+				rb(b, bench);
 			else
-				rrb(b);
+				rrb(b, bench);
 		}
-		pa(a, b);
+		pa(a, b, bench);
 	}
 }
 
-void	medium_sort(t_stack **stack_a, t_stack **stack_b)
+void	medium_sort(t_stack **stack_a, t_stack **stack_b, t_bench *bench)
 {
 	int	chunk;
 
 	chunk = get_chunk_size(stack_size(*stack_a));
-	push_chunks_to_b(stack_a, stack_b, chunk);
-	push_back_to_a(stack_a, stack_b);
+	push_chunks_to_b(stack_a, stack_b, chunk, bench);
+	push_back_to_a(stack_a, stack_b, bench);
 }

@@ -6,7 +6,7 @@
 /*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 05:56:45 by ahsimsek          #+#    #+#             */
-/*   Updated: 2026/09/03 06:07:27 by ahsimsek         ###   ########.fr       */
+/*   Updated: 2026/09/12 01:30:00 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,36 @@ static void	reverse_rotate(t_stack **stack)
 	*stack = last;
 }
 
-void	rra(t_stack **a)
+void	rra(t_stack **a, t_bench *bench)
 {
 	reverse_rotate(a);
 	ft_putstr_fd("rra\n", 1);
+	if (bench)
+	{
+		bench->counts[OP_RRA]++;
+		bench->total++;
+	}
 }
 
-void	rrb(t_stack **b)
+void	rrb(t_stack **b, t_bench *bench)
 {
 	reverse_rotate(b);
 	ft_putstr_fd("rrb\n", 1);
+	if (bench)
+	{
+		bench->counts[OP_RRB]++;
+		bench->total++;
+	}
 }
 
-void	rrr(t_stack **a, t_stack **b)
+void	rrr(t_stack **a, t_stack **b, t_bench *bench)
 {
 	reverse_rotate(a);
 	reverse_rotate(b);
 	ft_putstr_fd("rrr\n", 1);
+	if (bench)
+	{
+		bench->counts[OP_RRR]++;
+		bench->total++;
+	}
 }

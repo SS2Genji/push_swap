@@ -6,13 +6,13 @@
 /*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 17:55:40 by ahsimsek          #+#    #+#             */
-/*   Updated: 2026/09/10 18:38:12 by ahsimsek         ###   ########.fr       */
+/*   Updated: 2026/09/12 02:43:52 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_three(t_stack **a)
+void	sort_three(t_stack **a, t_bench *bench)
 {
 	int	first;
 	int	second;
@@ -24,24 +24,24 @@ void	sort_three(t_stack **a)
 	second = (*a)->next->value;
 	third = (*a)->next->next->value;
 	if (first > second && second < third && first < third)
-		sa(a);
+		sa(a, bench);
 	else if (first > second && second > third)
 	{
-		sa(a);
-		rra(a);
+		sa(a, bench);
+		rra(a, bench);
 	}
 	else if (first > second && second < third && first > third)
-		ra(a);
+		ra(a, bench);
 	else if (first < second && second > third && first < third)
 	{
-		sa(a);
-		ra(a);
+		sa(a, bench);
+		ra(a, bench);
 	}
 	else if (first < second && second > third && first > third)
-		rra(a);
+		rra(a, bench);
 }
 
-void	sort_five(t_stack **a, t_stack **b)
+void	sort_five(t_stack **a, t_stack **b, t_bench *bench)
 {
 	t_stack	*min_node;
 	int		pos;
@@ -55,13 +55,13 @@ void	sort_five(t_stack **a, t_stack **b)
 		while (*a != min_node)
 		{
 			if (pos <= size / 2)
-				ra(a);
+				ra(a, bench);
 			else
-				rra(a);
+				rra(a, bench);
 		}
-		pb(a, b);
+		pb(a, b, bench);
 	}
-	sort_three(a);
+	sort_three(a, bench);
 	while (*b)
-		pa(a, b);
+		pa(a, b, bench);
 }

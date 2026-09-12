@@ -6,7 +6,7 @@ LIBFT_DIR   = libft
 LIBFT       = $(LIBFT_DIR)/libft.a
 
 SRCS        = main.c parse.c stack_uti.c free_uti.c push.c swap.c rotate.c reverse_rotate.c \
-              disorder.c index.c sort_utils.c small_sort.c simple_sort.c medium_sort.c radix_sort.c sort_dispatcher.c
+              disorder.c index.c sort_utils.c small_sort.c simple_sort.c medium_sort.c radix_sort.c sort_dispatcher.c bench.c
 OBJS        = $(SRCS:.c=.o)
 
 all: $(LIBFT) $(NAME)

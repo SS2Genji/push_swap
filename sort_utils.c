@@ -6,7 +6,7 @@
 /*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 17:42:05 by ahsimsek          #+#    #+#             */
-/*   Updated: 2026/09/10 18:25:33 by ahsimsek         ###   ########.fr       */
+/*   Updated: 2026/09/12 02:44:05 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,16 @@ int	get_max_bits(int max_val)
 	while ((max_val >> bits) > 0)
 		bits++;
 	return (bits);
+}
+
+int	ft_isqrt(int n)
+{
+	int	i;
+
+	if (n <= 0)
+		return (0);
+	i = 1;
+	while (i * i <= n)
+		i++;
+	return (i - 1);
 }

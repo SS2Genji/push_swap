@@ -6,13 +6,13 @@
 /*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 18:02:15 by ahsimsek          #+#    #+#             */
-/*   Updated: 2026/09/10 18:40:50 by ahsimsek         ###   ########.fr       */
+/*   Updated: 2026/09/12 02:43:43 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	simple_sort(t_stack **a, t_stack **b)
+void	simple_sort(t_stack **a, t_stack **b, t_bench *bench)
 {
 	t_stack	*min_node;
 	int		pos;
@@ -26,13 +26,13 @@ void	simple_sort(t_stack **a, t_stack **b)
 		while (*a != min_node)
 		{
 			if (pos <= size / 2)
-				ra(a);
+				ra(a, bench);
 			else
-				rra(a);
+				rra(a, bench);
 		}
-		pb(a, b);
+		pb(a, b, bench);
 	}
-	sort_three(a);
+	sort_three(a, bench);
 	while (*b)
-		pa(a, b);
+		pa(a, b, bench);
 }

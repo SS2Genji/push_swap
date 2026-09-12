@@ -6,7 +6,7 @@
 /*   By: ahsimsek <ahsimsek@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 01:50:29 by ahsimsek          #+#    #+#             */
-/*   Updated: 2026/09/03 04:54:44 by ahsimsek         ###   ########.fr       */
+/*   Updated: 2026/09/12 01:30:00 by ahsimsek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,43 @@ int	is_valid_nbr(char *str)
 	return (1);
 }
 
-static int	process_args(t_stack **a, char **args)
+static int	process_token(t_stack **a, char *token, t_flags *flags)
 {
-	int		j;
 	long	num;
+	t_stack	*node;
 
-	j = 0;
-	while (args[j])
+	if (token[0] == '-' && token[1] == '-')
 	{
-		num = ft_atol(args[j]);
-		if (!is_valid_nbr(args[j]) || check_duplicate(*a, (int)num))
+		if (ft_strncmp(token, "--simple", 9) == 0)
+			flags->strategy = STRAT_SIMPLE;
+		else if (ft_strncmp(token, "--medium", 9) == 0)
+			flags->strategy = STRAT_MEDIUM;
+		else if (ft_strncmp(token, "--complex", 10) == 0)
+			flags->strategy = STRAT_COMPLEX;
+		else if (ft_strncmp(token, "--adaptive", 11) == 0)
+			flags->strategy = STRAT_ADAPTIVE;
+		else if (ft_strncmp(token, "--bench", 8) == 0)
+			flags->bench = 1;
+		else
 			return (0);
-		stack_add_back(a, stack_new((int)num));
-		j++;
+		return (1);
 	}
+	if (!is_valid_nbr(token))
+		return (0);
+	num = ft_atol(token);
+	if (check_duplicate(*a, (int)num))
+		return (0);
+	node = stack_new((int)num);
+	if (!node)
+		return (0);
+	stack_add_back(a, node);
 	return (1);
 }
 
-int	parse_args(t_stack **a, char **argv)
+int	parse_args(t_stack **a, char **argv, t_flags *flags)
 {
 	int		i;
+	int		j;
 	char	**args;
 
 	i = 1;
@@ -98,11 +115,16 @@ int	parse_args(t_stack **a, char **argv)
 			free_stack(a);
 			return (0);
 		}
-		if (!process_args(a, args))
+		j = 0;
+		while (args[j])
 		{
-			free_matrix(args);
-			free_stack(a);
-			return (0);
+			if (!process_token(a, args[j], flags))
+			{
+				free_matrix(args);
+				free_stack(a);
+				return (0);
+			}
+			j++;
 		}
 		free_matrix(args);
 		i++;
